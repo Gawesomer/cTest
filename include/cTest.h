@@ -2,6 +2,10 @@
 #define _CTEST_H_
 
 #include <stdint.h>
+#include <stdio.h>
+
+#include "cmp.h"
+#include "displ.h"
 
 /*** begin_region framework ***/
 
