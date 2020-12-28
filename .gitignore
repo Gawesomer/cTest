@@ -1,0 +1,8 @@
+*.o
+*.d
+*.a
+*.dSYM
+lib/tests/test_cassert
+lib/tests/test_displ
+lib/tests/test_framework
+util/tests/test_cmp
