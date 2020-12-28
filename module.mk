@@ -1,0 +1,2 @@
+INCLUDEDIRS := ./include
+UTILDIR     := ./util

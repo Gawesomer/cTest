@@ -1,0 +1,3 @@
+[submodule "simpleMake"]
+	path = simpleMake
+	url = git@github.com:Gawesomer/simpleMake.git
