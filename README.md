@@ -1,3 +1,3 @@
-# Cryptopals
+# cTest
 
-My solutions to the [Cryptopals](https://cryptopals.com/) challenges.
+Test framework for the C programming language.
