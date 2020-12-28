@@ -1,6 +1,6 @@
 CURRPROGS := lib/test.a
-CURRTESTS := lib/tests/test_cassert lib/tests/test_cmp \
-	lib/tests/test_displ lib/tests/test_framework
+CURRTESTS := lib/tests/test_cassert lib/tests/test_displ \
+	lib/tests/test_framework
 
 PROGRAMS += $(CURRPROGS)
 TESTS	 += $(CURRTESTS)
@@ -12,12 +12,10 @@ lib: $(CURRPROGS) $(CURRTESTS)
 lib/tests: $(CURRTESTS)
 
 lib/test.a: lib/test.a( \
-	lib/framework.o lib/cassert.o lib/cmp.o lib/displ.o \
+	lib/framework.o lib/cassert.o lib/displ.o $(UTILDIR)/cmp.o \
 	)
 
-lib/tests/test_cassert: lib/tests/test_cassert.o lib/cmp.o lib/displ.o
-
-lib/tests/test_cmp: lib/tests/test_cmp.o
+lib/tests/test_cassert: lib/tests/test_cassert.o lib/displ.o $(UTILDIR)/cmp.o
 
 lib/tests/test_displ: lib/tests/test_displ.o
 
