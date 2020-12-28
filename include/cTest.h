@@ -1,12 +1,41 @@
-#ifndef _CASSERT_H_
-#define _CASSERT_H_
+#ifndef _CTEST_H_
+#define _CTEST_H_
 
 #include <stdint.h>
 
-#include "cmp.h"
-#include "displ.h"
+/*** begin_region framework ***/
 
-/* These are the internal test functions.
+/* These are internal test functions.
+ * They should not be called directly and should instead by used by utilizing
+ * their respective wrapper macros defined below
+ */
+int register_test(const char *name, int (*fun)(void));
+int run_tests(const char *filename);
+
+/* Registers a test to be run by `RUN_TESTS`
+ * params:
+ * 	- fun: test function to run
+ * 	       a test function is an integer function that returns 0 on success
+ * 	       and nonzero otherwise, it takes no arguments
+ * returns:
+ * 	0 on success, nonzero otherwise
+ */
+#define REGISTER_TEST(fun)	register_test(#fun, fun)
+
+/* Runs all registered tests and prints the results to STDOUT
+ * params:
+ * 	none
+ * returns:
+ * 	number of tests that failed
+ */
+#define RUN_TESTS()	run_tests(__FILE__)
+
+/*** end_region framework ***/
+
+
+/*** begin_region cassert ***/
+
+/* These are internal test functions.
  * They should not be called directly and should instead by used by utilizing
  * their respective wrapper macros defined below
  */
@@ -125,5 +154,7 @@ int test_str_eq(const char *macro, const char *f, int l, const char *fun, \
 #define TEST_STR_EQ(s1, s2) \
 	test_str_eq("TEST_STR_EQ", __FILE__, __LINE__, __func__, \
 		#s1, #s2, s1, s2)
+
+/*** end_region cassert ***/
 
 #endif

@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "cassert.h"
+#include "cmp.h"
+#include "cTest.h"
+#include "displ.h"
 
 int test_true(const char *macro, const char *f, int l, const char *fun, \
 		const char *tk, int exp)

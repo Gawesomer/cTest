@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "framework.h"
+#include "cTest.h"
 
 #define TEST_BATCH_SIZE	1024
 
