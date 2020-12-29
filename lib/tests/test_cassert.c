@@ -109,6 +109,7 @@ void test_TEST_TRUE_stacktrace(void)
 	fclose(buffer);
 
 	assertion = (strcmp(actualstr, expectedstr) == 0);
+	printf("actualstr: '%s'\nexpectedstr: '%s'\n", actualstr, expectedstr);
 
 	free(actualstr);
 
