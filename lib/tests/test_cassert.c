@@ -76,7 +76,7 @@ void test_TEST_TRUE_stacktrace(void)
 {
 	printf("%s\n", __func__);
 
-	int assertion;
+	//int assertion;
 	char *actualstr;
 	char expectedstr[BUFFSIZE];
 	FILE *buffer, *tmp;
@@ -108,7 +108,7 @@ void test_TEST_TRUE_stacktrace(void)
 	stdout = tmp;
 	fclose(buffer);
 
-	assertion = (strcmp(actualstr, expectedstr) == 0);
+	//assertion = (strcmp(actualstr, expectedstr) == 0);
 	printf("actualstr: '%s'\nexpectedstr: '%s'\n", actualstr, expectedstr);
 
 	free(actualstr);
