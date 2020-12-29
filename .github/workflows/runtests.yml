@@ -9,6 +9,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: git submodule update
+      run: git submodule init && git submodule update
     - name: make
       run: make all
     - name: make runtests
