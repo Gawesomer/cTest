@@ -14,4 +14,4 @@ jobs:
     - name: make
       run: make all
     - name: make runtests
-      run: make runtests
+      run: ./lib/tests/test_cassert
