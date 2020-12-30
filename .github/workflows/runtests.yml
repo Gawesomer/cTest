@@ -11,6 +11,8 @@ jobs:
     - uses: actions/checkout@v2
     - name: git update submodules
       run: git submodule update --init
+    - name: install valgrind
+      run: apt install valgrind
     - name: make
       run: make all
     - name: make runtests
