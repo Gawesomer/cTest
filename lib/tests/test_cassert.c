@@ -42,12 +42,12 @@ void test_TEST_TRUE_false(void)
 
 	// Execute with STDOUT redirected to /dev/null
 	devnull = fopen("/dev/null", "w");
-	tmp = stdout;
-	stdout = devnull;
+	tmp = PRINTSTRM;
+	PRINTSTRM = devnull;
 
 	assertion = (TEST_TRUE(0) != 0);
 
-	stdout = tmp;
+	PRINTSTRM = tmp;
 	fclose(devnull);
 
 	assert(assertion);
@@ -61,12 +61,12 @@ void test_TEST_TRUE_false_w_expr(void)
 	FILE *devnull, *tmp;
 
 	devnull = fopen("/dev/null", "w");
-	tmp = stdout;
-	stdout = devnull;
+	tmp = PRINTSTRM;
+	PRINTSTRM = devnull;
 
 	assertion = (TEST_TRUE(3*4 == 13) != 0);
 
-	stdout = tmp;
+	PRINTSTRM = tmp;
 	fclose(devnull);
 
 	assert(assertion);
@@ -100,12 +100,12 @@ void test_TEST_TRUE_stacktrace(void)
 	buffer = fmemopen(actualstr, BUFFSIZE, "w");
 
 	// Execute with STDOUT redirected to `actualstr`
-	tmp = stdout;
-	stdout = buffer;
+	tmp = PRINTSTRM;
+	PRINTSTRM = buffer;
 
 	TEST_TRUE(0);
 
-	stdout = tmp;
+	PRINTSTRM = tmp;
 	fclose(buffer);
 
 	assertion = (strcmp(actualstr, expectedstr) == 0);
@@ -136,12 +136,12 @@ void test_TEST_TRUE_stacktrace_w_expr(void)
 	actualstr = calloc(BUFFSIZE, sizeof(char));
 	buffer = fmemopen(actualstr, BUFFSIZE, "w");
 
-	tmp = stdout;
-	stdout = buffer;
+	tmp = PRINTSTRM;
+	PRINTSTRM = buffer;
 
 	TEST_TRUE(0 == 1);
 
-	stdout = tmp;
+	PRINTSTRM = tmp;
 	fclose(buffer);
 
 	assertion = (strcmp(actualstr, expectedstr) == 0);
@@ -186,14 +186,14 @@ void test_TEST_INT_EQ_not_eq(void)
 	FILE *devnull, *tmp;
 
 	devnull = fopen("/dev/null", "w");
-	tmp = stdout;
-	stdout = devnull;
+	tmp = PRINTSTRM;
+	PRINTSTRM = devnull;
 
 	assertions[0] = (TEST_INT_EQ(0, 1) != 0);
 	assertions[1] = (TEST_INT_EQ(-1, 1) != 0);
 	assertions[2] = (TEST_INT_EQ(INT_MAX, INT_MIN) != 0);
 
-	stdout = tmp;
+	PRINTSTRM = tmp;
 	fclose(devnull);
 
 	for (i = 0; i < 3; i++)
@@ -209,8 +209,8 @@ void test_TEST_INT_EQ_not_eq_w_expr(void)
 	FILE *devnull, *tmp;
 
 	devnull = fopen("/dev/null", "w");
-	tmp = stdout;
-	stdout = devnull;
+	tmp = PRINTSTRM;
+	PRINTSTRM = devnull;
 
 	assertions[0] = (TEST_INT_EQ(-8+10, 1) != 0);
 	assertions[1] = (TEST_INT_EQ(1, -8+10) != 0);
@@ -219,7 +219,7 @@ void test_TEST_INT_EQ_not_eq_w_expr(void)
 	assertions[4] = (TEST_INT_EQ(1, TEST_INT_EQ(7, 7)) != 0);
 	assertions[5] = (TEST_INT_EQ(TEST_INT_EQ(1, 2), TEST_INT_EQ(7, 7)) != 0);
 
-	stdout = tmp;
+	PRINTSTRM = tmp;
 	fclose(devnull);
 
 	for (i = 0; i < 6; i++)
@@ -247,12 +247,12 @@ void test_TEST_INT_EQ_stacktrace(void)
 	actualstr = calloc(BUFFSIZE, sizeof(char));
 	buffer = fmemopen(actualstr, BUFFSIZE, "w");
 
-	tmp = stdout;
-	stdout = buffer;
+	tmp = PRINTSTRM;
+	PRINTSTRM = buffer;
 
 	TEST_INT_EQ(0, 1);
 
-	stdout = tmp;
+	PRINTSTRM = tmp;
 	fclose(buffer);
 
 	assertion = (strcmp(actualstr, expectedstr) == 0);
@@ -283,12 +283,12 @@ void test_TEST_INT_EQ_stacktrace_w_expr(void)
 	actualstr = calloc(BUFFSIZE, sizeof(char));
 	buffer = fmemopen(actualstr, BUFFSIZE, "w");
 
-	tmp = stdout;
-	stdout = buffer;
+	tmp = PRINTSTRM;
+	PRINTSTRM = buffer;
 
 	TEST_INT_EQ(-8+10, 8-10);
 
-	stdout = tmp;
+	PRINTSTRM = tmp;
 	fclose(buffer);
 
 	assertion = (strcmp(actualstr, expectedstr) == 0);
@@ -322,12 +322,12 @@ void test_TEST_FLOAT_EQ_not_eq(void)
 	FILE *devnull, *tmp;
 
 	devnull = fopen("/dev/null", "w");
-	tmp = stdout;
-	stdout = devnull;
+	tmp = PRINTSTRM;
+	PRINTSTRM = devnull;
 
 	assertion = (TEST_FLOAT_EQ(1.0f, 1.2f) != 0);
 
-	stdout = tmp;
+	PRINTSTRM = tmp;
 	fclose(devnull);
 
 	assert(assertion);
@@ -341,12 +341,12 @@ void test_TEST_FLOAT_EQ_not_eq_w_expr(void)
 	FILE *devnull, *tmp;
 
 	devnull = fopen("/dev/null", "w");
-	tmp = stdout;
-	stdout = devnull;
+	tmp = PRINTSTRM;
+	PRINTSTRM = devnull;
 
 	assertion = (TEST_FLOAT_EQ(0.0f+1.0f, 3.0f-1.8f) != 0);
 
-	stdout = tmp;
+	PRINTSTRM = tmp;
 	fclose(devnull);
 
 	assert(assertion);
@@ -374,12 +374,12 @@ void test_TEST_FLOAT_EQ_stacktrace(void)
 	actualstr = calloc(BUFFSIZE, sizeof(char));
 	buffer = fmemopen(actualstr, BUFFSIZE, "w");
 
-	tmp = stdout;
-	stdout = buffer;
+	tmp = PRINTSTRM;
+	PRINTSTRM = buffer;
 
 	TEST_FLOAT_EQ(1.0f, 1.2f);
 
-	stdout = tmp;
+	PRINTSTRM = tmp;
 	fclose(buffer);
 
 	assertion = (strcmp(actualstr, expectedstr) == 0);
@@ -411,12 +411,12 @@ void test_TEST_FLOAT_EQ_stacktrace_w_expr(void)
 	actualstr = calloc(BUFFSIZE, sizeof(char));
 	buffer = fmemopen(actualstr, BUFFSIZE, "w");
 
-	tmp = stdout;
-	stdout = buffer;
+	tmp = PRINTSTRM;
+	PRINTSTRM = buffer;
 
 	TEST_FLOAT_EQ(0.0f+1.0f, 3.0f-1.8f);
 
-	stdout = tmp;
+	PRINTSTRM = tmp;
 	fclose(buffer);
 
 	assertion = (strcmp(actualstr, expectedstr) == 0);
@@ -465,12 +465,12 @@ void test_TEST_BYTE_ARR_EQ_stacktrace(void)
 	actualstr = calloc(BUFFSIZE, sizeof(char));
 	buffer = fmemopen(actualstr, BUFFSIZE, "w");
 
-	tmp = stdout;
-	stdout = buffer;
+	tmp = PRINTSTRM;
+	PRINTSTRM = buffer;
 
 	TEST_BYTE_ARR_EQ(a, b, 3);
 
-	stdout = tmp;
+	PRINTSTRM = tmp;
 	fclose(buffer);
 
 	assertion = (strcmp(actualstr, expectedstr) == 0);
@@ -507,12 +507,12 @@ void test_TEST_BYTE_ARR_EQ_stacktrace_w_null(void)
 		"NULL", "a", "3", a[0], a[1], a[2]);
 	buffer = fmemopen(actualstr, BUFFSIZE, "w");
 
-	tmp = stdout;
-	stdout = buffer;
+	tmp = PRINTSTRM;
+	PRINTSTRM = buffer;
 
 	TEST_BYTE_ARR_EQ(NULL, a, 3);
 
-	stdout = tmp;
+	PRINTSTRM = tmp;
 	fclose(buffer);
 
 	assertions[0] = (strcmp(actualstr, expectedstr) == 0);
@@ -531,12 +531,12 @@ void test_TEST_BYTE_ARR_EQ_stacktrace_w_null(void)
 		"a", "NULL", "3", a[0], a[1], a[2]);
 	buffer = fmemopen(actualstr, BUFFSIZE, "w");
 
-	tmp = stdout;
-	stdout = buffer;
+	tmp = PRINTSTRM;
+	PRINTSTRM = buffer;
 
 	TEST_BYTE_ARR_EQ(a, NULL, 3);
 
-	stdout = tmp;
+	PRINTSTRM = tmp;
 	fclose(buffer);
 
 	assertions[1] = (strcmp(actualstr, expectedstr) == 0);
@@ -586,12 +586,12 @@ void test_TEST_INT_ARR_EQ_stacktrace(void)
 	actualstr = calloc(BUFFSIZE, sizeof(char));
 	buffer = fmemopen(actualstr, BUFFSIZE, "w");
 
-	tmp = stdout;
-	stdout = buffer;
+	tmp = PRINTSTRM;
+	PRINTSTRM = buffer;
 
 	TEST_INT_ARR_EQ(a, b, 3);
 
-	stdout = tmp;
+	PRINTSTRM = tmp;
 	fclose(buffer);
 
 	assertion = (strcmp(actualstr, expectedstr) == 0);
@@ -628,12 +628,12 @@ void test_TEST_INT_ARR_EQ_stacktrace_w_null(void)
 		"NULL", "a", "3", a[0], a[1], a[2]);
 	buffer = fmemopen(actualstr, BUFFSIZE, "w");
 
-	tmp = stdout;
-	stdout = buffer;
+	tmp = PRINTSTRM;
+	PRINTSTRM = buffer;
 
 	TEST_INT_ARR_EQ(NULL, a, 3);
 
-	stdout = tmp;
+	PRINTSTRM = tmp;
 	fclose(buffer);
 
 	assertions[0] = (strcmp(actualstr, expectedstr) == 0);
@@ -652,12 +652,12 @@ void test_TEST_INT_ARR_EQ_stacktrace_w_null(void)
 		"a", "NULL", "3", a[0], a[1], a[2]);
 	buffer = fmemopen(actualstr, BUFFSIZE, "w");
 
-	tmp = stdout;
-	stdout = buffer;
+	tmp = PRINTSTRM;
+	PRINTSTRM = buffer;
 
 	TEST_INT_ARR_EQ(a, NULL, 3);
 
-	stdout = tmp;
+	PRINTSTRM = tmp;
 	fclose(buffer);
 
 	assertions[1] = (strcmp(actualstr, expectedstr) == 0);
@@ -707,12 +707,12 @@ void test_TEST_FLOAT_ARR_EQ_stacktrace(void)
 	actualstr = calloc(BUFFSIZE, sizeof(char));
 	buffer = fmemopen(actualstr, BUFFSIZE, "w");
 
-	tmp = stdout;
-	stdout = buffer;
+	tmp = PRINTSTRM;
+	PRINTSTRM = buffer;
 
 	TEST_FLOAT_ARR_EQ(a, b, 3);
 
-	stdout = tmp;
+	PRINTSTRM = tmp;
 	fclose(buffer);
 
 	assertion = (strcmp(actualstr, expectedstr) == 0);
@@ -749,12 +749,12 @@ void test_TEST_FLOAT_ARR_EQ_stacktrace_w_null(void)
 		"NULL", "a", "3", a[0], a[1], a[2]);
 	buffer = fmemopen(actualstr, BUFFSIZE, "w");
 
-	tmp = stdout;
-	stdout = buffer;
+	tmp = PRINTSTRM;
+	PRINTSTRM = buffer;
 
 	TEST_FLOAT_ARR_EQ(NULL, a, 3);
 
-	stdout = tmp;
+	PRINTSTRM = tmp;
 	fclose(buffer);
 
 	assertions[0] = (strcmp(actualstr, expectedstr) == 0);
@@ -773,12 +773,12 @@ void test_TEST_FLOAT_ARR_EQ_stacktrace_w_null(void)
 		"a", "NULL", "3", a[0], a[1], a[2]);
 	buffer = fmemopen(actualstr, BUFFSIZE, "w");
 
-	tmp = stdout;
-	stdout = buffer;
+	tmp = PRINTSTRM;
+	PRINTSTRM = buffer;
 
 	TEST_FLOAT_ARR_EQ(a, NULL, 3);
 
-	stdout = tmp;
+	PRINTSTRM = tmp;
 	fclose(buffer);
 
 	assertions[1] = (strcmp(actualstr, expectedstr) == 0);
@@ -826,12 +826,12 @@ void test_TEST_STR_EQ_stacktrace(void)
 	actualstr = calloc(BUFFSIZE, sizeof(char));
 	buffer = fmemopen(actualstr, BUFFSIZE, "w");
 
-	tmp = stdout;
-	stdout = buffer;
+	tmp = PRINTSTRM;
+	PRINTSTRM = buffer;
 
 	TEST_STR_EQ(s1, s2);
 
-	stdout = tmp;
+	PRINTSTRM = tmp;
 	fclose(buffer);
 
 	assertion = (strcmp(actualstr, expectedstr) == 0);
@@ -868,12 +868,12 @@ void test_TEST_STR_EQ_stacktrace_w_null(void)
 		"NULL", "s", s);
 	buffer = fmemopen(actualstr, BUFFSIZE, "w");
 
-	tmp = stdout;
-	stdout = buffer;
+	tmp = PRINTSTRM;
+	PRINTSTRM = buffer;
 
 	TEST_STR_EQ(NULL, s);
 
-	stdout = tmp;
+	PRINTSTRM = tmp;
 	fclose(buffer);
 
 	assertions[0] = (strcmp(actualstr, expectedstr) == 0);
@@ -892,12 +892,12 @@ void test_TEST_STR_EQ_stacktrace_w_null(void)
 		"s", "NULL", s);
 	buffer = fmemopen(actualstr, BUFFSIZE, "w");
 
-	tmp = stdout;
-	stdout = buffer;
+	tmp = PRINTSTRM;
+	PRINTSTRM = buffer;
 
 	TEST_STR_EQ(s, NULL);
 
-	stdout = tmp;
+	PRINTSTRM = tmp;
 	fclose(buffer);
 
 	assertions[1] = (strcmp(actualstr, expectedstr) == 0);
