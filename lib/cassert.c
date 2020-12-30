@@ -11,13 +11,13 @@ int test_true(const char *macro, const char *f, int l, const char *fun, \
 	if (exp)
 		return 0;
 
-	printf("==========================================================\n");
-	printf("FAIL: %s\n", fun);
-	printf("----------------------------------------------------------\n");
-	printf("\tFile \"%s\", line %d:\n", f, l);
-	printf("\t\t%s(%s)\n", macro, tk);
-	printf("\t\t\t`%s` not true\n", tk);
-	printf("----------------------------------------------------------\n");
+	fprintf(PRINTSTRM, "==========================================================\n");
+	fprintf(PRINTSTRM, "FAIL: %s\n", fun);
+	fprintf(PRINTSTRM, "----------------------------------------------------------\n");
+	fprintf(PRINTSTRM, "\tFile \"%s\", line %d:\n", f, l);
+	fprintf(PRINTSTRM, "\t\t%s(%s)\n", macro, tk);
+	fprintf(PRINTSTRM, "\t\t\t`%s` not true\n", tk);
+	fprintf(PRINTSTRM, "----------------------------------------------------------\n");
 
 	return 1;
 }
@@ -28,13 +28,13 @@ int test_int_eq(const char *macro, const char *f, int l, const char *fun, \
 	if (intcmp(&a, &b) == 0)
 		return 0;
 
-	printf("==========================================================\n");
-	printf("FAIL: %s\n", fun);
-	printf("----------------------------------------------------------\n");
-	printf("\tFile \"%s\", line %d:\n", f, l);
-	printf ("\t\t%s(%s, %s)\n", macro, a_tk, b_tk);
-	printf("\t\t\t%d != %d\n", a, b);
-	printf("----------------------------------------------------------\n");
+	fprintf(PRINTSTRM, "==========================================================\n");
+	fprintf(PRINTSTRM, "FAIL: %s\n", fun);
+	fprintf(PRINTSTRM, "----------------------------------------------------------\n");
+	fprintf(PRINTSTRM, "\tFile \"%s\", line %d:\n", f, l);
+	fprintf(PRINTSTRM, "\t\t%s(%s, %s)\n", macro, a_tk, b_tk);
+	fprintf(PRINTSTRM, "\t\t\t%d != %d\n", a, b);
+	fprintf(PRINTSTRM, "----------------------------------------------------------\n");
 
 	return 1;
 }
@@ -46,13 +46,13 @@ int test_float_eq(const char *macro, const char *f, int l, const char *fun, \
 	if (floatcmp(&a, &b) == 0)
 		return 0;
 
-	printf("==========================================================\n");
-	printf("FAIL: %s\n", fun);
-	printf("----------------------------------------------------------\n");
-	printf("\tFile \"%s\", line %d:\n", f, l);
-	printf ("\t\t%s(%s, %s)\n", macro, a_tk, b_tk);
-	printf("\t\t\t%f != %f\n", a, b);
-	printf("----------------------------------------------------------\n");
+	fprintf(PRINTSTRM, "==========================================================\n");
+	fprintf(PRINTSTRM, "FAIL: %s\n", fun);
+	fprintf(PRINTSTRM, "----------------------------------------------------------\n");
+	fprintf(PRINTSTRM, "\tFile \"%s\", line %d:\n", f, l);
+	fprintf(PRINTSTRM, "\t\t%s(%s, %s)\n", macro, a_tk, b_tk);
+	fprintf(PRINTSTRM, "\t\t\t%f != %f\n", a, b);
+	fprintf(PRINTSTRM, "----------------------------------------------------------\n");
 
 	return 1;
 }
@@ -66,18 +66,18 @@ int test_arr_eq(const char *macro, const char *f, int l, const char *fun, \
 	if (arrcmp(a, b, nel, width, compare) == 0)
 		return 0;
 
-	printf("==========================================================\n");
-	printf("FAIL: %s\n", fun);
-	printf("----------------------------------------------------------\n");
-	printf("\tFile \"%s\", line %d:\n", f, l);
-	printf("\t\t%s(%s, %s, %s)\n", macro, a_tk, b_tk, nel_tk);
-	printf("\t\t\t");
-	arr_displ(stdout, a, nel, width, display);
-	printf("\n");
-	printf("\t\t!=\t");
-	arr_displ(stdout, b, nel, width, display);
-	printf("\n");
-	printf("----------------------------------------------------------\n");
+	fprintf(PRINTSTRM, "==========================================================\n");
+	fprintf(PRINTSTRM, "FAIL: %s\n", fun);
+	fprintf(PRINTSTRM, "----------------------------------------------------------\n");
+	fprintf(PRINTSTRM, "\tFile \"%s\", line %d:\n", f, l);
+	fprintf(PRINTSTRM, "\t\t%s(%s, %s, %s)\n", macro, a_tk, b_tk, nel_tk);
+	fprintf(PRINTSTRM, "\t\t\t");
+	arr_displ(PRINTSTRM, a, nel, width, display);
+	fprintf(PRINTSTRM, "\n");
+	fprintf(PRINTSTRM, "\t\t!=\t");
+	arr_displ(PRINTSTRM, b, nel, width, display);
+	fprintf(PRINTSTRM, "\n");
+	fprintf(PRINTSTRM, "----------------------------------------------------------\n");
 
 	return 1;
 }
@@ -91,20 +91,20 @@ int test_str_eq(const char *macro, const char *f, int l, const char *fun, \
 	if ((s1 && s2) && strcmp(s1, s2) == 0)
 		return 0;
 
-	printf("==========================================================\n");
-	printf("FAIL: %s\n", fun);
-	printf("----------------------------------------------------------\n");
-	printf("\tFile \"%s\", line %d:\n", f, l);
-	printf("\t\t%s(%s, %s)\n", macro, s1_tk, s2_tk);
+	fprintf(PRINTSTRM, "==========================================================\n");
+	fprintf(PRINTSTRM, "FAIL: %s\n", fun);
+	fprintf(PRINTSTRM, "----------------------------------------------------------\n");
+	fprintf(PRINTSTRM, "\tFile \"%s\", line %d:\n", f, l);
+	fprintf(PRINTSTRM, "\t\t%s(%s, %s)\n", macro, s1_tk, s2_tk);
 	if (s1)
-		printf("\t\t\t\"%s\"\n", s1);
+		fprintf(PRINTSTRM, "\t\t\t\"%s\"\n", s1);
 	else
-		printf("\t\t\tNULL\n");
+		fprintf(PRINTSTRM, "\t\t\tNULL\n");
 	if (s2)
-		printf("\t\t!=\t\"%s\"\n", s2);
+		fprintf(PRINTSTRM, "\t\t!=\t\"%s\"\n", s2);
 	else
-		printf("\t\t!=\tNULL\n");
-	printf("----------------------------------------------------------\n");
+		fprintf(PRINTSTRM, "\t\t!=\tNULL\n");
+	fprintf(PRINTSTRM, "----------------------------------------------------------\n");
 
 	return 1;
 }

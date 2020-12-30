@@ -7,6 +7,9 @@
 #include "cmp.h"
 #include "displ.h"
 
+
+#define PRINTSTRM	stdout
+
 /*** begin_region framework ***/
 
 /* These are internal test functions.

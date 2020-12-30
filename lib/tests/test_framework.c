@@ -123,12 +123,12 @@ void test_RUN_TESTS_no_tests_succeeds(void)
 	FILE *devnull, *tmp;
 
 	devnull = fopen("/dev/null", "w");
-	tmp = stdout;
-	stdout = devnull;
+	tmp = PRINTSTRM;
+	PRINTSTRM = devnull;
 
 	res = RUN_TESTS();
 
-	stdout = tmp;
+	PRINTSTRM = tmp;
 	fclose(devnull);
 
 	assert(res == 0);
@@ -144,12 +144,12 @@ void test_RUN_TESTS_cleans_and_frees_memory_after_use(void)
 	REGISTER_TEST(test_fails);
 
 	devnull = fopen("/dev/null", "w");
-	tmp = stdout;
-	stdout = devnull;
+	tmp = PRINTSTRM;
+	PRINTSTRM = devnull;
 
 	RUN_TESTS();
 
-	stdout = tmp;
+	PRINTSTRM = tmp;
 	fclose(devnull);
 
 	assert(tests_size == 0);
@@ -168,12 +168,12 @@ void test_RUN_TESTS_single_failing_tests_causes_failure(void)
 	REGISTER_TEST(test_fails);
 
 	devnull = fopen("/dev/null", "w");
-	tmp = stdout;
-	stdout = devnull;
+	tmp = PRINTSTRM;
+	PRINTSTRM = devnull;
 
 	res = RUN_TESTS();
 
-	stdout = tmp;
+	PRINTSTRM = tmp;
 	fclose(devnull);
 
 	assert(res == 1);
@@ -202,12 +202,12 @@ void test_RUN_TESTS_passing_tests_displays_success(void)
 	actualstr = calloc(BUFFSIZE, sizeof(char));
 	buffer = fmemopen(actualstr, BUFFSIZE, "w");
 
-	tmp = stdout;
-	stdout = buffer;
+	tmp = PRINTSTRM;
+	PRINTSTRM = buffer;
 
 	res = RUN_TESTS();
 
-	stdout = tmp;
+	PRINTSTRM = tmp;
 	fclose(buffer);
 
 	assertion = (strcmp(actualstr, expectedstr) == 0);
@@ -241,12 +241,12 @@ void test_RUN_TESTS_failing_tests_displays_failures(void)
 	actualstr = calloc(BUFFSIZE, sizeof(char));
 	buffer = fmemopen(actualstr, BUFFSIZE, "w");
 
-	tmp = stdout;
-	stdout = buffer;
+	tmp = PRINTSTRM;
+	PRINTSTRM = buffer;
 
 	res = RUN_TESTS();
 
-	stdout = tmp;
+	PRINTSTRM = tmp;
 	fclose(buffer);
 
 	assertion = (strcmp(actualstr, expectedstr) == 0);
