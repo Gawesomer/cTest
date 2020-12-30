@@ -12,7 +12,7 @@ int test_true(const char *macro, const char *f, int l, const char *fun, \
 		return 0;
 
 	printf("stdout = %d\n", fileno(stdout));
-	printf("==========================================================\n");
+	printf("================\n");
 	printf("stdout = %d\n", fileno(stdout));
 	printf("FAIL: %s\n", fun);
 	printf("----------------------------------------------------------\n");
