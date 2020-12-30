@@ -87,7 +87,8 @@ void test_TEST_TRUE_stacktrace(void)
 	 * 	- execution line number (i.e. when macro is called)
 	 * 	- expressions passed to macro
 	 */
-	snprintf(expectedstr, BUFFSIZE, \
+	int res;
+	res = snprintf(expectedstr, BUFFSIZE, \
 		"==========================================================\n"
 		"FAIL: %s\n"
 		"----------------------------------------------------------\n"
@@ -96,6 +97,7 @@ void test_TEST_TRUE_stacktrace(void)
 		"\t\t\t`%s` not true\n"
 		"----------------------------------------------------------\n", \
 		__func__, __FILE__, __LINE__ + 8, "0", "0");
+	printf("snprintf = %d\n", res);
 	actualstr = calloc(BUFFSIZE, sizeof(char));
 	buffer = fmemopen(actualstr, BUFFSIZE, "w");
 
@@ -109,7 +111,7 @@ void test_TEST_TRUE_stacktrace(void)
 	fclose(buffer);
 
 	//assertion = (strcmp(actualstr, expectedstr) == 0);
-	//printf("actualstr: '%s'\nexpectedstr: '%s'\n", actualstr, expectedstr);
+	printf("actualstr: '%s'\nexpectedstr: '%s'\n", actualstr, expectedstr);
 
 	free(actualstr);
 
