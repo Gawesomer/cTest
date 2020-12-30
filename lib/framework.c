@@ -40,21 +40,21 @@ int run_tests(const char *filename)
 	int failures;
 	int i;
 
-	printf("--- %s ---\n", filename);
+	fprintf(PRINTSTRM, "--- %s ---\n", filename);
 
 	failures = 0;
 	for (i = 0; i < curr_test_index; i++) {
-		printf("%s\n", tests[i].name);
+		fprintf(PRINTSTRM, "%s\n", tests[i].name);
 		if ((*(tests[i].fun))() != 0)
 			failures++;
 	}
 	
-	printf("----------------------------------------------------------\n");
-	printf("Ran %d tests\n", curr_test_index);
+	fprintf(PRINTSTRM, "----------------------------------------------------------\n");
+	fprintf(PRINTSTRM, "Ran %d tests\n", curr_test_index);
 	if (failures == 0)
-		printf("\nOK\n");
+		fprintf(PRINTSTRM, "\nOK\n");
 	else
-		printf("\nFAILED (failures=%d)\n", failures);
+		fprintf(PRINTSTRM, "\nFAILED (failures=%d)\n", failures);
 
 	clean_tests();
 

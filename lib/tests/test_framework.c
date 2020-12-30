@@ -211,7 +211,6 @@ void test_RUN_TESTS_passing_tests_displays_success(void)
 	fclose(buffer);
 
 	assertion = (strcmp(actualstr, expectedstr) == 0);
-	printf("actualstr: '%s'\nexpectedstr: '%s'\n", actualstr, expectedstr);
 
 	free(actualstr);
 

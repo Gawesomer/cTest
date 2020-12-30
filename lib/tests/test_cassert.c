@@ -76,7 +76,7 @@ void test_TEST_TRUE_stacktrace(void)
 {
 	printf("%s\n", __func__);
 
-	//int assertion;
+	int assertion;
 	char *actualstr;
 	char expectedstr[BUFFSIZE];
 	FILE *buffer, *tmp;
@@ -87,8 +87,7 @@ void test_TEST_TRUE_stacktrace(void)
 	 * 	- execution line number (i.e. when macro is called)
 	 * 	- expressions passed to macro
 	 */
-	int res;
-	res = snprintf(expectedstr, BUFFSIZE, \
+	snprintf(expectedstr, BUFFSIZE, \
 		"==========================================================\n"
 		"FAIL: %s\n"
 		"----------------------------------------------------------\n"
@@ -97,11 +96,9 @@ void test_TEST_TRUE_stacktrace(void)
 		"\t\t\t`%s` not true\n"
 		"----------------------------------------------------------\n", \
 		__func__, __FILE__, __LINE__ + 8, "0", "0");
-	printf("snprintf = %d\n", res);
 	actualstr = calloc(BUFFSIZE, sizeof(char));
 	buffer = fmemopen(actualstr, BUFFSIZE, "w");
 
-	printf("pre stdout = %d\n", fileno(stdout));
 	// Execute with STDOUT redirected to `actualstr`
 	tmp = stdout;
 	stdout = buffer;
@@ -110,14 +107,12 @@ void test_TEST_TRUE_stacktrace(void)
 
 	stdout = tmp;
 	fclose(buffer);
-	printf("post stdout = %d\n", fileno(stdout));
 
-	//assertion = (strcmp(actualstr, expectedstr) == 0);
-	printf("actualstr: '%s'\nexpectedstr: '%s'\n", actualstr, expectedstr);
+	assertion = (strcmp(actualstr, expectedstr) == 0);
 
 	free(actualstr);
 
-	//assert(assertion);
+	assert(assertion);
 }
 
 void test_TEST_TRUE_stacktrace_w_expr(void)
