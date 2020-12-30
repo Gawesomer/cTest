@@ -913,11 +913,14 @@ int main(void)
 {
 	printf("--- %s ---\n", __FILE__);
 
+	/*
 	test_TEST_TRUE_true();
 	test_TEST_TRUE_true_w_expr();
 	test_TEST_TRUE_false();
 	test_TEST_TRUE_false_w_expr();
+	*/
 	test_TEST_TRUE_stacktrace();
+	/*
 	test_TEST_TRUE_stacktrace_w_expr();
 
 	test_TEST_INT_EQ_eq();
@@ -949,6 +952,7 @@ int main(void)
 	test_TEST_STR_EQ_eq();
 	test_TEST_STR_EQ_stacktrace();
 	test_TEST_STR_EQ_stacktrace_w_null();
+	*/
 
 	printf("----------------------------------------------------------\n");
 	printf("\nOK\n");
