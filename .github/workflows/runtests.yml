@@ -12,7 +12,7 @@ jobs:
     - name: git update submodules
       run: git submodule update --init
     - name: install valgrind
-      run: sudo apt install valgrind
+      run: sudo apt update && sudo apt install valgrind
     - name: make
       run: make all
     - name: make runtests
