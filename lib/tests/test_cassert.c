@@ -101,6 +101,7 @@ void test_TEST_TRUE_stacktrace(void)
 	actualstr = calloc(BUFFSIZE, sizeof(char));
 	buffer = fmemopen(actualstr, BUFFSIZE, "w");
 
+	printf("pre stdout = %d\n", fileno(stdout));
 	// Execute with STDOUT redirected to `actualstr`
 	tmp = stdout;
 	stdout = buffer;
@@ -109,6 +110,7 @@ void test_TEST_TRUE_stacktrace(void)
 
 	stdout = tmp;
 	fclose(buffer);
+	printf("post stdout = %d\n", fileno(stdout));
 
 	//assertion = (strcmp(actualstr, expectedstr) == 0);
 	printf("actualstr: '%s'\nexpectedstr: '%s'\n", actualstr, expectedstr);

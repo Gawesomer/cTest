@@ -11,13 +11,17 @@ int test_true(const char *macro, const char *f, int l, const char *fun, \
 	if (exp)
 		return 0;
 
+	printf("stdout = %d\n", fileno(stdout));
 	printf("==========================================================\n");
+	printf("stdout = %d\n", fileno(stdout));
 	printf("FAIL: %s\n", fun);
 	printf("----------------------------------------------------------\n");
 	printf("\tFile \"%s\", line %d:\n", f, l);
+	printf("stdout = %d\n", fileno(stdout));
 	printf("\t\t%s(%s)\n", macro, tk);
 	printf("\t\t\t`%s` not true\n", tk);
 	printf("----------------------------------------------------------\n");
+	printf("stdout = %d\n", fileno(stdout));
 
 	return 1;
 }
